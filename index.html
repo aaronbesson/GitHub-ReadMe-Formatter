@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GitHub Syntax Generator</title>
+</head>
+<body>
+  <h1>GitHub Syntax Generator</h1>
+
+  <p>Enter your text in the input field below and use the buttons to apply GitHub syntax:</p>
+
+  <textarea id="input"></textarea>
+  <div id="buttons"></div>
+
+  <p>Formatted text:</p>
+  <div id="formatted"></div>
+
+  <script>
+    // Define a list of GitHub syntax elements
+const elements = {
+  heading: "# ",
+  bold: "**",
+  italic: "*",
+  code: "`",
+  link: "[](url)",
+  list: "- "
+}
+
+// Define a function to apply GitHub syntax to selected text
+function applySyntax(syntax) {
+  // Get the selected text and the input field
+  let text = window.getSelection().toString();
+  let input = document.getElementById("input");
+
+  // If no text is selected, select all the text in the input field
+  if (text.length === 0) {
+    input.focus();
+    input.select();
+    text = input.value;
+  }
+
+  // Apply the specified syntax to the selected text
+  let formatted = syntax + text + syntax;
+
+  // Replace the selected text in the input field with the formatted text
+  input.value = input.value.replace(text, formatted);
+
+  // Display the formatted text in the "formatted" div
+  document.getElementById("formatted").innerHTML = formatted;
+}
+
+// Define a function to create buttons for each syntax element
+function createButtons() {
+  // Get the container for the buttons
+  let container = document.getElementById("buttons");
+
+  // Create a button for each syntax element
+  for (let element in elements) {
+    let button = document.createElement("button");
+    button.innerHTML = element;
+
+    // When the button is clicked, apply the syntax to the selected text
+    button.addEventListener("click", function() {
+      applySyntax(elements[element]);
+    });
+
+    container.appendChild(button);
+  }
+}
+
+// Call the createButtons function when the page loads
+window.onload = createButtons;
+  </script>
+</body>
+</html>
