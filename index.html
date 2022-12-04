@@ -39,7 +39,7 @@ function applySyntax(syntax) {
   }
 
   // Apply the specified syntax to the selected text
-  let formatted = syntax + text + syntax;
+  let formatted = syntax + text;
 
   // Replace the selected text in the input field with the formatted text
   input.value = input.value.replace(text, formatted);
